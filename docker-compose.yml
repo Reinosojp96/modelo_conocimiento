@@ -1,4 +1,4 @@
-
+version: "3.8"
 
 services:
   n8n:
@@ -14,5 +14,7 @@ services:
       - N8N_PORT=5678
       - N8N_EDITOR_BASE_URL=http://localhost:5678
       - N8N_PROTOCOL=http
+      - GENERIC_TIMEZONE=America/Bogota
     volumes:
       - ./n8n:/home/node/.n8n
+    user: "0:0"

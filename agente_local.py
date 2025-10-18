@@ -1,49 +1,69 @@
 # agente_local.py
+# Compatible con langchain-core 1.x y langchain-community 0.4.x
+
 from langchain_ollama import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.output_parsers import StrOutputParser
-from langchain.memory import ConversationBufferMemory
 
-# 1️⃣ Inicializa el modelo local (asegúrate de tener uno descargado, como 'mistral' o 'llama3')
+
+# Memoria de conversación simple
+class MemoriaConversacion:
+    def __init__(self):
+        self.mensajes = []
+
+    def agregar(self, rol, contenido):
+        self.mensajes.append((rol, contenido))
+
+    def obtener_historial(self):
+        historial = ""
+        for rol, contenido in self.mensajes[-10:]:  # guarda las últimas 10 interacciones
+            historial += f"{rol}: {contenido}\n"
+        return historial
+
+
+# 1️⃣ Modelo local de Ollama
 llm = ChatOllama(model="llama3", temperature=0.7)
 
-# 2️⃣ Crea la plantilla del prompt
+# 2️⃣ Plantilla del prompt
 prompt = ChatPromptTemplate.from_template("""
-Eres un agente inteligente que razona en español.
-Responde de forma clara y profesional a lo que el usuario diga.
-Historial de conversación:
+Eres un asistente que razona y responde en español.
+Usa el contexto previo para mantener coherencia en la conversación.
+
+Historial:
 {history}
 Usuario: {input}
 Asistente:
 """)
 
-# 3️⃣ Memoria de conversación
-memory = ConversationBufferMemory(return_messages=True)
-
-# 4️⃣ Motor de parsing de salida (simple texto)
+# 3️⃣ Inicializa memoria y parser
+memoria = MemoriaConversacion()
 parser = StrOutputParser()
 
-# 5️⃣ Bucle de interacción
+
+# 4️⃣ Bucle principal
 def ejecutar_agente():
-    print("🤖 Agente iniciado. Escribe 'salir' para terminar.")
+    print("🤖 Agente local con Ollama iniciado. Escribe 'salir' para terminar.\n")
+
     while True:
-        entrada = input("Tú: ")
+        entrada = input("Tú: ").strip()
         if entrada.lower() in ["salir", "exit", "quit"]:
+            print("👋 Hasta luego.")
             break
 
-        # Guarda entrada en memoria
-        memory.chat_memory.add_user_message(entrada)
+        memoria.agregar("Usuario", entrada)
+        historial = memoria.obtener_historial()
 
-        # Genera respuesta
-        historial = "\n".join(
-            [f"{m.type}: {m.content}" for m in memory.chat_memory.messages]
-        )
+        # Crea el mensaje formateado
         cadena = prompt.format(history=historial, input=entrada)
-        respuesta = llm.invoke(cadena)
-        print("Agente:", respuesta.content)
 
-        # Guarda respuesta
-        memory.chat_memory.add_ai_message(respuesta.content)
+        # Llama al modelo
+        respuesta = llm.invoke(cadena)
+        salida = parser.invoke(respuesta)
+
+        print(f"Agente: {salida}\n")
+
+        memoria.agregar("Asistente", salida)
 
 
 if __name__ == "__main__":
