@@ -4,6 +4,7 @@ from pathlib import Path
 from pdf_processor import PDFProcessor
 from ai_analyzer_ollama import FinancialAnalyzerOllama
 from document_generator import ReportGenerator
+from latex_generator import LatexGenerator
 import ollama
 
 class FinancialAnalysisSystemOllama:
@@ -13,7 +14,8 @@ class FinancialAnalysisSystemOllama:
         self.pdf_processor = PDFProcessor()
         self.ai_analyzer = FinancialAnalyzerOllama(model_name)
         self.report_generator = ReportGenerator()
-        
+        self.latex_generator = LatexGenerator()
+
         # Configurar logging
         logging.basicConfig(
             level=logging.INFO,
@@ -101,7 +103,11 @@ class FinancialAnalysisSystemOllama:
             with open(json_file, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
             
-            self.logger.info(f"✓ Datos completos exportados: {json_file}")
+            latex_file = self.latex_generator.generate_corporate_report(
+                data, 
+                str(self.output_folder / "informe_corporativo.tex")
+            )
+            self.logger.info(f"✓ Documento LaTeX generado: {latex_file}")
             
         except Exception as e:
             self.logger.error(f"Error generando reporte final: {str(e)}")

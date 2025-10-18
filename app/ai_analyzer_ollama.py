@@ -63,7 +63,7 @@ class FinancialAnalyzerOllama:
             return self._fallback_analysis(text, filename)
     
     def _create_analysis_prompt(self, text: str, filename: str) -> str:
-        """Crea el prompt optimizado para modelos locales"""
+        """Crea el prompt optimizado para análisis completo con elementos gráficos"""
         return f"""Eres un analista financiero experto. Analiza este documento y devuelve SOLO un JSON válido.
 
 DOCUMENTO: {filename}
@@ -71,11 +71,20 @@ CONTENIDO: {text}
 
 ANÁLISIS REQUERIDO (formato JSON):
 {{
-  "resumen_ejecutivo": "resumen breve aquí",
-  "puntos_fuertes": ["punto 1", "punto 2"],
-  "areas_mejora": ["área 1", "área 2"],
-  "recomendaciones": ["recomendación 1", "recomendación 2"],
-  "riesgo_asociado": "bajo/medio/alto"
+  "resumen_ejecutivo": "resumen ejecutivo de 3-4 líneas",
+  "puntos_fuertes": ["punto 1", "punto 2", "punto 3", "punto 4"],
+  "areas_mejora": ["área 1", "área 2", "área 3", "área 4"],
+  "recomendaciones": ["recomendación 1", "recomendación 2", "recomendación 3"],
+  "riesgo_asociado": "bajo/medio/alto",
+  "metricas_principales": {{
+    "ingresos": "información detectada",
+    "gastos": "información detectada", 
+    "utilidades": "información detectada",
+    "flujo_caja": "información detectada"
+  }},
+  "procesos_identificados": ["proceso 1", "proceso 2", "proceso 3"],
+  "relaciones_departamentales": ["relación 1", "relación 2"],
+  "terminos_financieros_clave": ["término 1", "término 2", "término 3", "término 4"]
 }}
 
 Responde EXCLUSIVAMENTE con el JSON, sin texto adicional.
@@ -110,7 +119,16 @@ Responde EXCLUSIVAMENTE con el JSON, sin texto adicional.
             "puntos_fuertes": ["Análisis completado con IA local"],
             "areas_mejora": ["Validar resultados manualmente"],
             "recomendaciones": ["Revisar documento original"],
-            "riesgo_asociado": "medio"
+            "riesgo_asociado": "medio",
+            "metricas_principales": {
+                "ingresos": "No detectado",
+                "gastos": "No detectado", 
+                "utilidades": "No detectado",
+                "flujo_caja": "No detectado"
+            },
+            "procesos_identificados": ["Proceso genérico"],
+            "relaciones_departamentales": ["Relación básica"],
+            "terminos_financieros_clave": ["Término general"]
         }
     
     def _fallback_analysis(self, text: str, filename: str) -> Dict[str, Any]:
@@ -120,5 +138,14 @@ Responde EXCLUSIVAMENTE con el JSON, sin texto adicional.
             "puntos_fuertes": ["Procesamiento básico completado"],
             "areas_mejora": ["Error en análisis IA"],
             "recomendaciones": ["Reintentar o validar manualmente"],
-            "riesgo_asociado": "medio"
+            "riesgo_asociado": "medio",
+            "metricas_principales": {
+                "ingresos": "No disponible",
+                "gastos": "No disponible", 
+                "utilidades": "No disponible",
+                "flujo_caja": "No disponible"
+            },
+            "procesos_identificados": ["No identificados"],
+            "relaciones_departamentales": ["No identificadas"],
+            "terminos_financieros_clave": ["No identificados"]
         }

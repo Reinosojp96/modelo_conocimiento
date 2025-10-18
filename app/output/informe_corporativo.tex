@@ -1,0 +1,242 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{shapes, arrows, positioning, fit}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{float}
+
+% Colores corporativos
+\definecolor{corporate-blue}{RGB}{0, 82, 155}
+\definecolor{corporate-gray}{RGB}{240, 240, 240}
+\definecolor{accent-orange}{RGB}{255, 102, 0}
+
+% Estilo profesional
+\usepackage{titlesec}
+\titleformat{\section}{\color{corporate-blue}\normalfont\Large\bfseries}{}{0pt}{}
+\titleformat{\subsection}{\color{corporate-blue}\normalfont\large\bfseries}{}{0pt}{}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{corporate-blue}{\footnotesize Análisis Financiero Corporativo}}
+\fancyhead[R]{\textcolor{corporate-blue}{\footnotesize \thepage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\color{corporate-blue}\hrule}
+
+\begin{document}
+
+% Portada corporativa
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    % \includegraphics[width=0.3\textwidth]{logo_empresa.png} % Reemplazar con logo real
+    \vspace{1cm}
+    
+    {\Huge\color{corporate-blue}\textbf{ANÁLISIS FINANCIERO CORPORATIVO}}
+    \vspace{1cm}
+    
+    {\Large\textbf{Informe de Diagnóstico Integral}}
+    \vspace{1.5cm}
+    
+    {\large Generado el: 18 de October de 2025}
+    \vspace{0.5cm}
+    
+    {\large Documentos analizados: 1}
+    \vspace{2cm}
+    
+    \rule{\textwidth}{0.4pt}
+    \vspace{0.5cm}
+    
+    {\large Departamento de Análisis Financiero}
+    \vfill
+\end{titlepage}
+
+% Tabla de contenidos
+\tableofcontents
+\newpage
+
+
+    % Resumen Ejecutivo
+    \section{Resumen Ejecutivo}
+    \noindent\fbox{\parbox{\textwidth}{
+    Análisis consolidado de 1 documentos financieros. Se identificaron 3 puntos fuertes principales y 2 áreas críticas de mejora.
+    }}
+
+    % Análisis por Documento
+    \section{Análisis por Documento}
+    
+    \subsection{manual_empresa.pdf}
+    \textbf{Resumen:} TeenFinanKids es una aplicación móvil que brinda educación financiera integral a niños y jóvenes en Colombia.
+
+    \textbf{Riesgo:} bajo
+
+    \subsubsection{Puntos Fuertes}
+    \begin{itemize}
+        \item aplicación móvil
+    \item educación financiera integral
+    \item participación de padres y tutores
+\end{itemize}
+
+    \subsubsection{Áreas de Mejora}
+    \begin{itemize}
+        \item limitaciones de implementación
+    \item riesgos económicos
+\end{itemize}
+
+    \subsubsection{Recomendaciones}
+    \begin{itemize}
+        \item fomentar hábitos financieros saludables desde la infancia
+    \item consolidar una experiencia educativa motivadora
+\end{itemize}
+
+
+
+% Sección de Grafos y Diagramas
+\section{Análisis Gráfico y Diagramas}
+
+% Gráfico de Riesgos
+\subsection{Distribución de Riesgos}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            ybar,
+            bar width=0.8cm,
+            width=0.8\textwidth,
+            height=6cm,
+            symbolic x coords={Alto, Medio, Bajo},
+            xtick=data,
+            nodes near coords,
+            nodes near coords align={vertical},
+            ymin=0,
+            ymax=3,
+            xlabel={Nivel de Riesgo},
+            ylabel={Cantidad de Documentos},
+            tick label style={font=\small},
+            label style={font=\small}
+        ]
+        \addplot[fill=corporate-blue] coordinates {(Alto, 0) (Medio, 0) (Bajo, 1)};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Distribución de niveles de riesgo identificados}
+\end{figure}
+
+% Diagrama de Flujo de Procesos
+\subsection{Diagrama de Procesos Identificados}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[node distance=2cm, auto]
+        \tikzstyle{process} = [rectangle, draw=corporate-blue, fill=corporate-gray, thick, minimum width=3cm, minimum height=1cm, text centered, rounded corners]
+        \tikzstyle{decision} = [diamond, draw=accent-orange, fill=orange!20, thick, minimum width=2cm, minimum height=1cm, text centered, aspect=2]
+        \tikzstyle{arrow} = [thick,->,>=stealth]
+        
+        \node (start) [process] {Inicio del Proceso};
+        \node (analysis) [process, below of=start] {Análisis Financiero};
+        \node (decision) [decision, below of=analysis] {¿Riesgo Alto?};
+        \node (action1) [process, right of=decision, xshift=3cm] {Acción Correctiva};
+        \node (action2) [process, below of=decision, yshift=-1cm] {Seguimiento Normal};
+        \node (end) [process, below of=action2] {Finalización};
+        
+        \draw [arrow] (start) -- (analysis);
+        \draw [arrow] (analysis) -- (decision);
+        \draw [arrow] (decision) -- node[near start] {Sí} (action1);
+        \draw [arrow] (decision) -- node[near start] {No} (action2);
+        \draw [arrow] (action1) |- (end);
+        \draw [arrow] (action2) -- (end);
+    \end{tikzpicture}
+    \caption{Diagrama de flujo del proceso de análisis financiero}
+\end{figure}
+
+
+% Grafo de Relaciones Departamentales  
+\subsection{Mapa de Relaciones Organizacionales}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        node distance=3cm,
+        department/.style={rectangle, draw=corporate-blue, fill=corporate-gray, thick, minimum width=2.5cm, minimum height=1cm, text centered, rounded corners},
+        relation/.style={->, thick, >=stealth}
+    ]
+    
+        \node[department] (finance) {Finanzas};
+        \node[department, right of=finance] (operations) {Operaciones};
+        \node[department, below of=finance] (sales) {Ventas};
+        \node[department, right of=sales] (marketing) {Marketing};
+        
+        \draw[relation] (sales) -- node[midway, left] {Informes} (finance);
+        \draw[relation] (operations) -- node[midway, above] {Costos} (finance);
+        \draw[relation] (marketing) -- node[midway, right] {Presupuesto} (finance);
+        \draw[relation] (sales) -- node[midway, below] {Coordinación} (operations);
+        
+    \end{tikzpicture}
+    \caption{Mapa de relaciones interdepartamentales identificadas}
+\end{figure}
+
+
+% Mapa Conceptual de Términos
+\subsection{Mapa Conceptual Financiero}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        concept/.style={ellipse, draw=accent-orange, fill=orange!20, thick, minimum width=2cm, minimum height=1cm, text centered},
+        connection/.style={->, thick, >=stealth, bend left=15}
+    ]
+    
+        \node[concept] (income) {Ingresos};
+        \node[concept, right of=income, xshift=3cm] (costs) {Costos};
+        \node[concept, below of=income, yshift=-1cm] (profit) {Utilidades};
+        \node[concept, right of=profit, xshift=3cm] (cashflow) {Flujo de Caja};
+        
+        \draw[connection] (income) to node[midway, above] {Genera} (profit);
+        \draw[connection] (costs) to node[midway, above] {Afecta} (profit);
+        \draw[connection] (profit) to node[midway, right] {Impacta} (cashflow);
+        \draw[connection] (income) to node[midway, left] {Financia} (cashflow);
+        
+    \end{tikzpicture}
+    \caption{Mapa conceptual de términos financieros clave}
+\end{figure}
+
+
+% Arquitectura Organizacional
+\subsection{Diagrama de Arquitectura Organizacional}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        level 1/.style={sibling distance=4cm},
+        level 2/.style={sibling distance=2cm},
+        every node/.style={rectangle, draw=corporate-blue, fill=corporate-gray, thick, minimum width=2.5cm, text centered, rounded corners}
+    ]
+    
+    \node {Gerencia General}
+        child {node {Finanzas}
+            child {node {Contabilidad}}
+            child {node {Análisis}}
+        }
+        child {node {Operaciones}
+            child {node {Producción}}
+            child {node {Logística}}
+        }
+        child {node {Comercial}
+            child {node {Ventas}}
+            child {node {Marketing}}
+        };
+    
+    \end{tikzpicture}
+    \caption{Arquitectura organizacional sugerida}
+\end{figure}
+
+
+
+\end{document}
