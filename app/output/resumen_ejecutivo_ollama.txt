@@ -1,0 +1,8 @@
+RESUMEN EJECUTIVO - ANÁLISIS FINANCIERO
+Fecha: 2025-10-18 13:36
+Documentos analizados: 1
+
+HALLAZGOS PRINCIPALES:
+- manual_empresa.pdf (Riesgo: bajo)
+  La aplicación móvil TeenFinanKids busca promover la educación financiera integral en niños y jóvenes colombianos....
+

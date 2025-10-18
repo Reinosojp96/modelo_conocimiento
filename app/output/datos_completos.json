@@ -1,0 +1,22 @@
+[
+  {
+    "file_name": "manual_empresa.pdf",
+    "raw_text": "TeenFinanKids Autores: Ingeniería de Sistemas Ibagué - Tolima 1 ÍNDICE RESUMEN 2 INTRODUCCIÓN 3 Importancia del Proyecto 4 Público Objetivo 5 Objetivos 6 Requisitos del Sistema 6   Requisitos Funcionales 6   Requisitos No Funcionales 16   Requisitos Generales 19   Requerimientos Humanos 19   Requerimientos Financieros 20   Casos de uso o Historias de usuario 20   Diagrama de arquitectura 54 - Diagrama de Módulos 55 Descripción jerárquica de los componentes del sistema 59 Descripción de procesos y servicios ofrecidos por el sistema 60   Justificación de las decisiones arquitectónicas 64 9. Alineación con el Crecimiento y Objetivos del Proyecto 66 Tecnologías utilizadas o a utilizar 68 Prototipo 71 Descripción de los Hitos Importantes 80   Metodología para el modelado de negocios 86 Pruebas y Validación 86 1. Obtención del Sistema 86 2. Instalación del Sistema 86 3. Especificaciones Generales de la Plataforma o Entorno 87 1. Estrategias de Pruebas 87 1.1 Pruebas Unitarias 88 1.2 Pruebas ...",
+    "analysis": {
+      "resumen_ejecutivo": "La aplicación móvil TeenFinanKids busca promover la educación financiera integral en niños y jóvenes colombianos.",
+      "puntos_fuertes": [
+        "Incorpora gamificación y simulaciones realistas para hacer la educación financiera más atractiva",
+        "Permite la participación de padres y tutores en el proceso de aprendizaje"
+      ],
+      "areas_mejora": [
+        "Desarrollo de contenidos más exhaustivos y actualizados",
+        "Mejora en la interfaz de usuario y experiencia del usuario"
+      ],
+      "recomendaciones": [
+        "Incorporar herramientas para monitorear y evaluar el progreso de los usuarios",
+        "Desarrollar un plan de marketing efectivo para promover la aplicación"
+      ],
+      "riesgo_asociado": "bajo"
+    }
+  }
+]
