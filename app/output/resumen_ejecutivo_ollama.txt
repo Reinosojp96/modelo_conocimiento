@@ -1,8 +1,11 @@
 RESUMEN EJECUTIVO - ANÁLISIS FINANCIERO
-Fecha: 2025-10-18 14:31
-Documentos analizados: 1
+Fecha: 2025-10-18 16:59
+Documentos analizados: 2
 
 HALLAZGOS PRINCIPALES:
+- informe_corporativo_masivo.pdf (Riesgo: medio)
+  El informe financiero corporativo 2024 presenta un crecimiento orgánico del 15% en ingresos y una mejora del margen EBITDA del 2.3%. Se identificaron oportunidades de optimización en la cadena de sumi...
+
 - manual_empresa.pdf (Riesgo: bajo)
   TeenFinanKids es una aplicación móvil que brinda educación financiera integral a niños y jóvenes en Colombia....
 

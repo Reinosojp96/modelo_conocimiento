@@ -1,13 +1,47 @@
 [
   {
+    "file_name": "informe_corporativo_masivo.pdf",
+    "raw_text": "INFORME FINANCIERO CORPORATIVO 2024 1. ESTADO DE SITUACIÓN FINANCIERA Esta es la página 1 de la sección ESTADO DE SITUACIÓN FINANCIERA. Contiene análisis financiero detallado sobre métricas clave de rendimiento, ratios de liquidez, indicadores de solvencia y proyecciones estratégicas para el próximo ejercicio fiscal. Los principales hallazgos incluyen un crecimiento orgánico del 15% en ingresos, una mejora del margen EBITDA del 2.3%, y una reducción del costo de capital del 1.8%. Se identificaron oportunidades de optimización en la cadena de suministro que podrían generar ahorros adicionales por aproximadamente $2.5 millones anuales. El análisis de sensibilidad indica que un cambio del 10% en los tipos de cambio impactaría los resultados en aproximadamente $4.2 millones. Se recomienda implementar coberturas cambiarias para mitigar este riesgo exposure. En términos de gobernanza, se detectaron 3 áreas de mejora en los controles internos relacionadas con la segregación de funciones en el...",
+    "analysis": {
+      "resumen_ejecutivo": "El informe financiero corporativo 2024 presenta un crecimiento orgánico del 15% en ingresos y una mejora del margen EBITDA del 2.3%. Se identificaron oportunidades de optimización en la cadena de suministro que podrían generar ahorros adicionales.",
+      "puntos_fuertes": [
+        "Crecimiento orgánico del 15% en ingresos",
+        "Mejora del margen EBITDA del 2.3%",
+        "Redución del costo de capital del 1.8%"
+      ],
+      "areas_mejora": [
+        "Se detectaron 3 áreas de mejora en los controles internos relacionadas con la segregación de funciones en el proceso de aprobación de gastos"
+      ],
+      "recomendaciones": [
+        "Implementar coberturas cambiarias para mitigar el riesgo exposure",
+        "Revisar y actualizar las políticas de autorización para alinearlas con las mejores prácticas del sector"
+      ],
+      "riesgo_asociado": "medio",
+      "metricas_principales": {
+        "ingresos": "15% crecimiento orgánico",
+        "gastos": "información detectada",
+        "utilidades": "información detectada",
+        "flujo_caja": "información detectada"
+      },
+      "procesos_identificados": [
+        "Proceso de aprobación de gastos"
+      ],
+      "relaciones_departamentales": [],
+      "terminos_financieros_clave": [
+        "Margen EBITDA",
+        "Costo de capital"
+      ]
+    }
+  },
+  {
     "file_name": "manual_empresa.pdf",
     "raw_text": "TeenFinanKids Autores: Ingeniería de Sistemas Ibagué - Tolima 1 ÍNDICE RESUMEN 2 INTRODUCCIÓN 3 Importancia del Proyecto 4 Público Objetivo 5 Objetivos 6 Requisitos del Sistema 6   Requisitos Funcionales 6   Requisitos No Funcionales 16   Requisitos Generales 19   Requerimientos Humanos 19   Requerimientos Financieros 20   Casos de uso o Historias de usuario 20   Diagrama de arquitectura 54 - Diagrama de Módulos 55 Descripción jerárquica de los componentes del sistema 59 Descripción de procesos y servicios ofrecidos por el sistema 60   Justificación de las decisiones arquitectónicas 64 9. Alineación con el Crecimiento y Objetivos del Proyecto 66 Tecnologías utilizadas o a utilizar 68 Prototipo 71 Descripción de los Hitos Importantes 80   Metodología para el modelado de negocios 86 Pruebas y Validación 86 1. Obtención del Sistema 86 2. Instalación del Sistema 86 3. Especificaciones Generales de la Plataforma o Entorno 87 1. Estrategias de Pruebas 87 1.1 Pruebas Unitarias 88 1.2 Pruebas ...",
     "analysis": {
       "resumen_ejecutivo": "TeenFinanKids es una aplicación móvil que brinda educación financiera integral a niños y jóvenes en Colombia.",
       "puntos_fuertes": [
-        "aplicación móvil",
-        "educación financiera integral",
-        "participación de padres y tutores"
+        "aplicación lúdica y accesible",
+        "participación de padres y tutores",
+        "educación financiera integral"
       ],
       "areas_mejora": [
         "limitaciones de implementación",
@@ -32,9 +66,9 @@
         "colaboración con padres y tutores"
       ],
       "terminos_financieros_clave": [
-        "ahorro",
         "inversión",
-        "gestión de presupuestos"
+        "presupuesto",
+        "ahorro"
       ]
     }
   }

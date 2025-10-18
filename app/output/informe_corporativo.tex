@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[11pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{geometry}
@@ -6,236 +6,511 @@
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{pgfplots}
-\usetikzlibrary{shapes, arrows, positioning, fit}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{shapes, arrows, positioning, fit, calc}
 \usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{float}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{lipsum}
+\usepackage[most]{tcolorbox} 
 
 % Colores corporativos
 \definecolor{corporate-blue}{RGB}{0, 82, 155}
 \definecolor{corporate-gray}{RGB}{240, 240, 240}
 \definecolor{accent-orange}{RGB}{255, 102, 0}
+\definecolor{success-green}{RGB}{34, 139, 34}
+\definecolor{warning-yellow}{RGB}{255, 165, 0}
+\definecolor{danger-red}{RGB}{220, 53, 69}
 
 % Estilo profesional
 \usepackage{titlesec}
-\titleformat{\section}{\color{corporate-blue}\normalfont\Large\bfseries}{}{0pt}{}
-\titleformat{\subsection}{\color{corporate-blue}\normalfont\large\bfseries}{}{0pt}{}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{corporate-blue}}
+  {\filleft\thechapter}{10pt}{\titlerule[1pt]\vspace{5pt}\filright} 
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{corporate-blue}}
+  {\thesection}{0.5em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{corporate-blue}}
+  {\thesubsection}{0.5em}{}
+\titlespacing{\chapter}{0pt}{50pt}{40pt}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\textcolor{corporate-blue}{\footnotesize Análisis Financiero Corporativo}}
-\fancyhead[R]{\textcolor{corporate-blue}{\footnotesize \thepage}}
+\fancyhead[L]{\textcolor{corporate-blue}{\footnotesize Informe Corporativo - Análisis Financiero}}
+\fancyhead[R]{\textcolor{corporate-blue}{\footnotesize Página \thepage}} 
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\headrule}{\color{corporate-blue}\hrule}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
 
 \begin{document}
 
 % Portada corporativa
 \begin{titlepage}
     \centering
-    \vspace*{2cm}
-    % \includegraphics[width=0.3\textwidth]{logo_empresa.png} % Reemplazar con logo real
-    \vspace{1cm}
-    
-    {\Huge\color{corporate-blue}\textbf{ANÁLISIS FINANCIERO CORPORATIVO}}
-    \vspace{1cm}
-    
-    {\Large\textbf{Informe de Diagnóstico Integral}}
+    \vspace*{1cm}
+    % \includegraphics[width=0.4\textwidth]{logo.png} 
     \vspace{1.5cm}
     
-    {\large Generado el: 18 de October de 2025}
+    {\Huge\color{corporate-blue}\textbf{INFORME CORPORATIVO INTEGRAL}}
     \vspace{0.5cm}
     
-    {\large Documentos analizados: 1}
-    \vspace{2cm}
+    {\Large\textbf{Análisis Financiero Estratégico}}
+    \vspace{1cm}
     
-    \rule{\textwidth}{0.4pt}
+    \rule{\textwidth}{1pt}
     \vspace{0.5cm}
     
-    {\large Departamento de Análisis Financiero}
+    {\large Generado el: 18 de octubre de 2025}
+    \vspace{0.3cm}
+    
+    {\large Documentos analizados: 2}
+    \vspace{0.3cm}
+    
+    {\large Total de páginas procesadas: 30}
+    \vspace{1.5cm}
+    
+    \begin{minipage}{0.8\textwidth}
+    \centering
+    \textbf{Departamento de Análisis Financiero}\\
+    División de Inteligencia Empresarial\\
+    Versión 2.0 - Informe Confidencial
+    \end{minipage}
     \vfill
+    
+    \footnotesize
+    Este documento contiene información confidencial y propietaria.\\
+    Su distribución está restringida a personal autorizado.
 \end{titlepage}
+
+% Página en blanco
+\cleardoublepage 
 
 % Tabla de contenidos
 \tableofcontents
-\newpage
+\cleardoublepage
 
 
-    % Resumen Ejecutivo
-    \section{Resumen Ejecutivo}
-    \noindent\fbox{\parbox{\textwidth}{
-    Análisis consolidado de 1 documentos financieros. Se identificaron 3 puntos fuertes principales y 2 áreas críticas de mejora.
-    }}
+\chapter*{Resumen Ejecutivo}
+\addcontentsline{toc}{chapter}{Resumen Ejecutivo}
 
-    % Análisis por Documento
-    \section{Análisis por Documento}
-    
-    \subsection{manual_empresa.pdf}
-    \textbf{Resumen:} TeenFinanKids es una aplicación móvil que brinda educación financiera integral a niños y jóvenes en Colombia.
+\begin{tcolorbox}[colback=corporate-gray!30!white, colframe=corporate-blue, title=Resumen Consolidado, fonttitle=\bfseries]
+Análisis integral de 2 documentos financieros corporativos. El proceso identificó 6 áreas de excelencia operativa y 3 oportunidades críticas de mejora. La evaluación de riesgos revela una distribución con 0 documentos de alto riesgo, 1 de riesgo medio y 1 de bajo riesgo. Se recomienda la implementación prioritaria de las 4 estrategias identificadas para optimizar el desempeño financiero y fortalecer la posición competitiva de la organización.
+\end{tcolorbox}
 
-    \textbf{Riesgo:} bajo
-
-    \subsubsection{Puntos Fuertes}
-    \begin{itemize}
-        \item aplicación móvil
-    \item educación financiera integral
-    \item participación de padres y tutores
+\section*{Hallazgos Clave}
+\begin{itemize}[left=0pt]
+    \item \textbf{Documentos Procesados:} 2 documentos financieros
+    \item \textbf{Puntos Fuertes Identificados:} 6 áreas de excelencia
+    \item \textbf{Oportunidades de Mejora:} 3 áreas críticas
+    \item \textbf{Recomendaciones Prioritarias:} 4 acciones estratégicas
 \end{itemize}
 
-    \subsubsection{Áreas de Mejora}
-    \begin{itemize}
-        \item limitaciones de implementación
+\section*{Análisis de Riesgo Consolidado}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lc}
+        \toprule
+        \textbf{Nivel de Riesgo} & \textbf{Documentos} \\
+        \midrule
+        Riesgo Alto & 0 \\
+        Riesgo Medio & 1 \\
+        Riesgo Bajo & 1 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Distribución de niveles de riesgo identificados}
+\end{table}
+
+\section*{Recomendaciones Ejecutivas Inmediatas}
+\begin{enumerate}[label=\textbf{Recomendación \arabic*:}, left=0pt]
+    \item Implementar sistema de monitoreo continuo de métricas financieras
+    \item Establecer comité de revisión de riesgos financieros
+    \item Desarrollar plan de capacitación en gestión financiera
+    \item Automatizar procesos de reporte y análisis
+\end{enumerate}
+
+\vspace{1cm}
+\noindent
+\textbf{Conclusión Ejecutiva:} El análisis integral revela oportunidades significativas 
+para la optimización de procesos financieros y la mitigación de riesgos. Se recomienda 
+la implementación prioritaria de las acciones identificadas para fortalecer la posición 
+competitiva de la organización.
+
+
+\chapter{Metodología de Análisis}
+
+\section{Enfoque Analítico}
+Este informe utiliza una metodología integral que combina:
+
+\subsection{Procesamiento de Documentos}
+\begin{itemize}
+    \item \textbf{Extracción Inteligente:} Uso de técnicas avanzadas de OCR y procesamiento de texto
+    \item \textbf{Análisis Semántico:} Identificación de conceptos y relaciones clave
+    \item \textbf{Procesamiento por Chunks:} División de documentos extensos para análisis detallado
+\end{itemize}
+
+\subsection{Modelo de Análisis}
+\begin{itemize}
+    \item \textbf{Evaluación de Riesgos:} Clasificación multi-nivel (Alto/Medio/Bajo)
+    \item \textbf{Identificación de Patrones:} Detección de tendencias y anomalías
+    \item \textbf{Benchmarking:} Comparación con mejores prácticas del sector
+\end{itemize}
+
+\section{Tecnologías Utilizadas}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Componente} & \textbf{Tecnología} \\
+        \midrule
+        Procesamiento de PDFs & PDFPlumber + PyPDF2 \\
+        Análisis de Texto & Ollama + Modelos de IA \\
+        Generación de Reportes & LaTeX + TikZ \\
+        Visualización & PGFPlots + Diagramas \\
+        \bottomrule
+    \end{tabular}
+    \caption{Tecnologías empleadas en el análisis}
+\end{table}
+
+
+\chapter{Análisis Detallado por Documento}
+
+Esta sección presenta el análisis individual de cada documento procesado, 
+incluyendo evaluación de riesgos, hallazgos específicos y recomendaciones 
+personalizadas.
+
+
+\section{Documento 1: informe_corporativo_masivo.pdf}
+
+\begin{tcolorbox}[colback=warning-yellow!10!white, colframe=warning-yellow, title=Evaluación de Riesgo: MEDIO]
+\textbf{Resumen Ejecutivo:} El informe financiero corporativo 2024 presenta un crecimiento orgánico del 15\% en ingresos y una mejora del margen EBITDA del 2.3\%. Se identificaron oportunidades de optimización en la cadena de suministro que podrían generar ahorros adicionales.
+\end{tcolorbox}
+
+\subsection{Análisis Estratégico}
+\begin{itemize}
+    \item \textbf{Tamaño del Documento:} N/A MB
+    \item \textbf{Chunks Procesados:} 1
+    \item \textbf{Complejidad:} Baja
+\end{itemize}
+
+\subsection{Puntos Fuertes Identificados}
+\begin{itemize}
+    \item Crecimiento orgánico del 15\% en ingresos
+    \item Mejora del margen EBITDA del 2.3\%
+    \item Redución del costo de capital del 1.8\%
+\end{itemize}
+
+\subsection{Áreas de Mejora Críticas}
+\begin{itemize}
+    \item Se detectaron 3 áreas de mejora en los controles internos relacionadas con la segregación de funciones en el proceso de aprobación de gastos
+\end{itemize}
+
+\subsection{Recomendaciones Específicas}
+\begin{enumerate}
+    \item Implementar coberturas cambiarias para mitigar el riesgo exposure
+    \item Revisar y actualizar las políticas de autorización para alinearlas con las mejores prácticas del sector
+\end{enumerate}
+
+
+\section{Documento 2: manual_empresa.pdf}
+
+\begin{tcolorbox}[colback=success-green!10!white, colframe=success-green, title=Evaluación de Riesgo: BAJO]
+\textbf{Resumen Ejecutivo:} TeenFinanKids es una aplicación móvil que brinda educación financiera integral a niños y jóvenes en Colombia.
+\end{tcolorbox}
+
+\subsection{Análisis Estratégico}
+\begin{itemize}
+    \item \textbf{Tamaño del Documento:} N/A MB
+    \item \textbf{Chunks Procesados:} 1
+    \item \textbf{Complejidad:} Baja
+\end{itemize}
+
+\subsection{Puntos Fuertes Identificados}
+\begin{itemize}
+    \item aplicación lúdica y accesible
+    \item participación de padres y tutores
+    \item educación financiera integral
+\end{itemize}
+
+\subsection{Áreas de Mejora Críticas}
+\begin{itemize}
+    \item limitaciones de implementación
     \item riesgos económicos
 \end{itemize}
 
-    \subsubsection{Recomendaciones}
-    \begin{itemize}
-        \item fomentar hábitos financieros saludables desde la infancia
+\subsection{Recomendaciones Específicas}
+\begin{enumerate}
+    \item fomentar hábitos financieros saludables desde la infancia
     \item consolidar una experiencia educativa motivadora
+\end{enumerate}
+
+
+\chapter{Análisis de Métricas Financieras}
+
+\section{Métricas Clave Identificadas}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.3\textwidth}p{0.6\textwidth}}
+        \toprule
+        \textbf{Métrica} & \textbf{Análisis y Recomendaciones} \\
+        \midrule
+        \textbf{Margen de Utilidad} & 
+        Evaluación del rendimiento operativo y recomendaciones para optimización 
+        de costos y mejora de eficiencia. \\
+        \hline
+        \textbf{Liquidez Corriente} & 
+        Análisis de la capacidad de corto plazo para cumplir con obligaciones 
+        y recomendaciones de gestión de capital de trabajo. \\
+        \hline
+        \textbf{Endeudamiento} & 
+        Evaluación de la estructura de capital y recomendaciones para 
+        optimización del leverage financiero. \\
+        \hline
+        \textbf{Rentabilidad sobre Patrimonio} & 
+        Análisis del retorno para los accionistas y estrategias para 
+        maximización del valor. \\
+        \bottomrule
+    \end{tabular}
+    \caption{Análisis de métricas financieras clave}
+\end{table}
+
+\section{Indicadores de Performance}
+\begin{itemize}
+    \item \textbf{Eficiencia Operativa:} Evaluación de procesos y recomendaciones de optimización
+    \item \textbf{Gestión de Costos:} Análisis de estructura de costos y oportunidades de reducción
+    \item \textbf{Optimización Fiscal:} Identificación de oportunidades en planificación tributaria
+    \item \textbf{Gestión de Riesgos:} Evaluación de exposición y estrategias de mitigación
 \end{itemize}
 
 
+\chapter{Evaluación Integral de Riesgos}
 
-% Sección de Grafos y Diagramas
-\section{Análisis Gráfico y Diagramas}
+\section{Matriz de Riesgos Identificados}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{p{0.25\textwidth}p{0.6\textwidth}}
+        \toprule
+        \textbf{Categoría de Riesgo} & \textbf{Medidas de Mitigación Recomendadas} \\
+        \midrule
+        \textbf{Riesgo Operacional} & 
+        Implementar controles internos reforzados, establecer monitoreo continuo 
+        y desarrollar planes de contingencia para procesos críticos. \\
+        \hline
+        \textbf{Riesgo Financiero} & 
+        Diversificar fuentes de financiamiento, establecer coberturas cambiarias 
+        y implementar políticas de gestión de tesorería. \\
+        \hline
+        \textbf{Riesgo de Cumplimiento} & 
+        Establecer programa de compliance integral, realizar auditorías regulares 
+        y capacitar al personal en regulaciones aplicables. \\
+        \hline
+        \textbf{Riesgo Tecnológico} & 
+        Implementar políticas de ciberseguridad, establecer backup de datos 
+        y desarrollar plan de continuidad del negocio. \\
+        \bottomrule
+    \end{tabular}
+    \caption{Matriz de riesgos y medidas de mitigación}
+\end{table}
 
-% Gráfico de Riesgos
-\subsection{Distribución de Riesgos}
-\begin{figure}[H]
+\section{Distribución de Niveles de Riesgo}
+\begin{figure}[H] 
     \centering
     \begin{tikzpicture}
         \begin{axis}[
             ybar,
-            bar width=0.8cm,
+            bar width=1cm,
             width=0.8\textwidth,
-            height=6cm,
+            height=8cm,
             symbolic x coords={Alto, Medio, Bajo},
             xtick=data,
             nodes near coords,
             nodes near coords align={vertical},
             ymin=0,
-            ymax=3,
+            ymax=4,
             xlabel={Nivel de Riesgo},
             ylabel={Cantidad de Documentos},
             tick label style={font=\small},
-            label style={font=\small}
+            label style={font=\small},
+            ytick={0,1,2,3,4,5,6},
+            bar shift=0pt
         ]
-        \addplot[fill=corporate-blue] coordinates {(Alto, 0) (Medio, 0) (Bajo, 1)};
+        \addplot[fill=danger-red] coordinates {(Alto, 0)};
+        \addplot[fill=warning-yellow] coordinates {(Medio, 1)};
+        \addplot[fill=success-green] coordinates {(Bajo, 1)};
         \end{axis}
     \end{tikzpicture}
-    \caption{Distribución de niveles de riesgo identificados}
+    \caption{Distribución de niveles de riesgo identificados mediante análisis automatizado.}
 \end{figure}
 
-% Diagrama de Flujo de Procesos
-\subsection{Diagrama de Procesos Identificados}
+\chapter{Recomendaciones Estratégicas}
 
-\begin{figure}[H]
+\section{Plan de Acción Prioritario}
+\begin{enumerate}[label=\textbf{Objetivo Estratégico \arabic*:}, left=0pt]
+    \item \textbf{Optimización de Procesos Financieros}
+    \begin{itemize}
+        \item Automatización de reportes mensuales
+        \item Implementación de dashboards en tiempo real
+        \item Establecimiento de KPIs financieros
+    \end{itemize}
+    
+    \item \textbf{Fortalecimiento de Controles Internos}
+    \begin{itemize}
+        \item Revisión de políticas de autorización
+        \item Implementación de segregación de funciones
+        \item Establecimiento de comité de auditoría
+    \end{itemize}
+    
+    \item \textbf{Gestión Proactiva de Riesgos}
+    \begin{itemize}
+        \item Desarrollo de matriz de riesgos actualizada
+        \item Implementación de monitoreo continuo
+        \item Establecimiento de planes de contingencia
+    \end{itemize}
+\end{enumerate}
+
+\section{Cronograma de Implementación}
+\begin{table}[H]
     \centering
-    \begin{tikzpicture}[node distance=2cm, auto]
-        \tikzstyle{process} = [rectangle, draw=corporate-blue, fill=corporate-gray, thick, minimum width=3cm, minimum height=1cm, text centered, rounded corners]
-        \tikzstyle{decision} = [diamond, draw=accent-orange, fill=orange!20, thick, minimum width=2cm, minimum height=1cm, text centered, aspect=2]
-        \tikzstyle{arrow} = [thick,->,>=stealth]
-        
-        \node (start) [process] {Inicio del Proceso};
-        \node (analysis) [process, below of=start] {Análisis Financiero};
-        \node (decision) [decision, below of=analysis] {¿Riesgo Alto?};
-        \node (action1) [process, right of=decision, xshift=3cm] {Acción Correctiva};
-        \node (action2) [process, below of=decision, yshift=-1cm] {Seguimiento Normal};
-        \node (end) [process, below of=action2] {Finalización};
-        
-        \draw [arrow] (start) -- (analysis);
-        \draw [arrow] (analysis) -- (decision);
-        \draw [arrow] (decision) -- node[near start] {Sí} (action1);
-        \draw [arrow] (decision) -- node[near start] {No} (action2);
-        \draw [arrow] (action1) |- (end);
-        \draw [arrow] (action2) -- (end);
-    \end{tikzpicture}
-    \caption{Diagrama de flujo del proceso de análisis financiero}
-\end{figure}
+    \begin{tabular}{p{0.3\textwidth}p{0.2\textwidth}p{0.4\textwidth}}
+        \toprule
+        \textbf{Actividad} & \textbf{Timeline} & \textbf{Responsable} \\
+        \midrule
+        Análisis de Brechas & 30 días & Director Financiero \\
+        Desarrollo de Plan & 45 días & Comité de Implementación \\
+        Ejecución Inicial & 90 días & Equipo Cross-Functional \\
+        Monitoreo y Ajuste & Continuo & Departamento de Análisis \\
+        \bottomrule
+    \end{tabular}
+    \caption{Cronograma recomendado para implementación}
+\end{table}
 
 
-% Grafo de Relaciones Departamentales  
-\subsection{Mapa de Relaciones Organizacionales}
+\chapter{Plan de Implementación}
+
+\section{Fases de Ejecución}
+\subsection{Fase 1: Diagnóstico y Planificación (30 días)}
+\begin{itemize}
+    \item Análisis detallado de brechas actuales
+    \item Definición de objetivos específicos y medibles
+    \item Asignación de recursos y responsabilidades
+    \item Establecimiento de métricas de éxito
+\end{itemize}
+
+\subsection{Fase 2: Desarrollo e Implementación (60 días)}
+\begin{itemize}
+    \item Configuración de sistemas y herramientas
+    \item Desarrollo de políticas y procedimientos
+    \item Capacitación del personal involucrado
+    \item Implementación piloto y ajustes
+\end{itemize}
+
+\subsection{Fase 3: Monitoreo y Optimización (Continuo)}
+\begin{itemize}
+    \item Seguimiento de indicadores de performance
+    \item Evaluación periódica de resultados
+    \item Ajustes basados en feedback y métricas
+    \item Escalamiento de soluciones exitosas
+\end{itemize}
+
+\section{Recursos Requeridos}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lp{0.6\textwidth}}
+        \toprule
+        \textbf{Recurso} & \textbf{Descripción} \\
+        \midrule
+        Recursos Humanos & Equipo cross-functional con representantes de finanzas, TI y operaciones \\
+        Recursos Tecnológicos & Herramientas de análisis, sistemas de reporte y plataformas de monitoreo \\
+        Presupuesto & Asignación específica para implementación y capacitación \\
+        Tiempo & Compromiso de dedicación parcial del equipo involucrado \\
+        \bottomrule
+    \end{tabular}
+    \caption{Recursos necesarios para la implementación}
+\end{table}
+
+
+\chapter{Visualización y Diagramas}
+
+\section{Distribución de Riesgos (Diagrama Circular)}
 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        node distance=3cm,
-        department/.style={rectangle, draw=corporate-blue, fill=corporate-gray, thick, minimum width=2.5cm, minimum height=1cm, text centered, rounded corners},
-        relation/.style={->, thick, >=stealth}
+        scale=1.0, 
+        font=\footnotesize
     ]
-    
-        \node[department] (finance) {Finanzas};
-        \node[department, right of=finance] (operations) {Operaciones};
-        \node[department, below of=finance] (sales) {Ventas};
-        \node[department, right of=sales] (marketing) {Marketing};
+        % Medio (50%)
+        \draw[fill=warning-yellow!70, draw=warning-yellow] (0,0) -- (0:3cm) arc (0:180:3cm) -- cycle;
+        \node at (90:2cm) [text=warning-yellow!90!black] {\textbf{Medio} (1) \\ 50.0\%};
         
-        \draw[relation] (sales) -- node[midway, left] {Informes} (finance);
-        \draw[relation] (operations) -- node[midway, above] {Costos} (finance);
-        \draw[relation] (marketing) -- node[midway, right] {Presupuesto} (finance);
-        \draw[relation] (sales) -- node[midway, below] {Coordinación} (operations);
+        % Bajo (50%)
+        \draw[fill=success-green!70, draw=success-green] (0,0) -- (180:3cm) arc (180:360:3cm) -- cycle;
+        \node at (270:2cm) [text=success-green!90!black] {\textbf{Bajo} (1) \\ 50.0\%};
         
     \end{tikzpicture}
-    \caption{Mapa de relaciones interdepartamentales identificadas}
+    \caption{Distribución porcentual de niveles de riesgo (2 documentos).}
 \end{figure}
 
-
-% Mapa Conceptual de Términos
-\subsection{Mapa Conceptual Financiero}
+\section{Diagrama de Flujo del Proceso de Análisis}
 
 \begin{figure}[H]
     \centering
     \begin{tikzpicture}[
-        concept/.style={ellipse, draw=accent-orange, fill=orange!20, thick, minimum width=2cm, minimum height=1cm, text centered},
-        connection/.style={->, thick, >=stealth, bend left=15}
+        node distance=1.5cm,
+        block/.style={rectangle, draw, fill=corporate-blue!20, text width=4cm, align=center, rounded corners, minimum height=1cm},
+        decision/.style={diamond, draw, fill=accent-orange!20, text width=3cm, align=center, aspect=2, minimum height=1cm},
+        line/.style={draw, -latex}
     ]
-    
-        \node[concept] (income) {Ingresos};
-        \node[concept, right of=income, xshift=3cm] (costs) {Costos};
-        \node[concept, below of=income, yshift=-1cm] (profit) {Utilidades};
-        \node[concept, right of=profit, xshift=3cm] (cashflow) {Flujo de Caja};
-        
-        \draw[connection] (income) to node[midway, above] {Genera} (profit);
-        \draw[connection] (costs) to node[midway, above] {Afecta} (profit);
-        \draw[connection] (profit) to node[midway, right] {Impacta} (cashflow);
-        \draw[connection] (income) to node[midway, left] {Financia} (cashflow);
+        % Nodos
+        \node [block] (start) {Inicio: Carga de Documentos};
+        \node [block, below of=start] (process) {Procesamiento y Extracción de Datos};
+        \node [block, below of=process] (ia_analysis) {Análisis con Modelos de IA};
+        \node [decision, below of=ia_analysis] (risk_level) {¿Riesgo Alto?};
+        \node [block, right of=risk_level, xshift=3cm] (high_risk) {Reporte de Alerta Crítica};
+        \node [block, below of=risk_level, yshift=-1cm] (final_report) {Generación de Informe Corporativo};
+
+        % Conexiones
+        \path [line] (start) -- (process);
+        \path [line] (process) -- (ia_analysis);
+        \path [line] (ia_analysis) -- (risk_level);
+        \path [line] (risk_level) -- node[above] {Sí} (high_risk);
+        \path [line] (risk_level) -- node[right] {No} (final_report);
+        \path [line] (high_risk) |- ([yshift=-0.5cm]final_report.east) -- (final_report.east);
         
     \end{tikzpicture}
-    \caption{Mapa conceptual de términos financieros clave}
+    \caption{Diagrama de Flujo del Proceso de Análisis e Identificación de Riesgos.}
 \end{figure}
 
+\chapter*{Apéndice Técnico}
+\addcontentsline{toc}{chapter}{Apéndice Técnico}
 
-% Arquitectura Organizacional
-\subsection{Diagrama de Arquitectura Organizacional}
+\section{Metadatos del Análisis}
+\begin{itemize}
+    \item \textbf{Fecha de Generación:} 2025-10-18 16:59:07
+    \item \textbf{Versión del Sistema:} 2.0 Enterprise
+    \item \textbf{Algoritmo de Análisis:} Procesamiento por Chunks + IA
+    \item \textbf{Modelo Utilizado:} Llama 3.1 8B Parámetros
+\end{itemize}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[
-        level 1/.style={sibling distance=4cm},
-        level 2/.style={sibling distance=2cm},
-        every node/.style={rectangle, draw=corporate-blue, fill=corporate-gray, thick, minimum width=2.5cm, text centered, rounded corners}
-    ]
-    
-    \node {Gerencia General}
-        child {node {Finanzas}
-            child {node {Contabilidad}}
-            child {node {Análisis}}
-        }
-        child {node {Operaciones}
-            child {node {Producción}}
-            child {node {Logística}}
-        }
-        child {node {Comercial}
-            child {node {Ventas}}
-            child {node {Marketing}}
-        };
-    
-    \end{tikzpicture}
-    \caption{Arquitectura organizacional sugerida}
-\end{figure}
+\section{Glosario de Términos}
+\begin{description}
+    \item[KPI (Key Performance Indicator)] Métrica utilizada para evaluar el éxito de una organización
+    \item[ROI (Return on Investment)] Retorno sobre la inversión realizada
+    \item[EBITDA] Ganancias antes de intereses, impuestos, depreciación y amortización
+    \item[Flujo de Caja Libre] Efectivo disponible después de gastos de capital
+\end{description}
+
+\section{Contacto y Soporte}
+Para consultas técnicas o adicionales sobre este informe, contactar al 
+Departamento de Análisis Financiero mediante los canales establecidos.
 
 
 
