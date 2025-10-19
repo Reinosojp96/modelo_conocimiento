@@ -1,0 +1,392 @@
+{
+  "name": "Extract text from a PDF file",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        -1040,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "e4a8fd6d-cf2a-4547-9ca5-f38177faaab9"
+    },
+    {
+      "parameters": {
+        "filePath": "/home/node/.n8n/data/manual_empresa.pdf"
+      },
+      "name": "Read Binary File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "position": [
+        -864,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "f25d4512-60a9-44b7-89cc-e7768c8fd1c5"
+    },
+    {
+      "parameters": {},
+      "name": "Read PDF",
+      "type": "n8n-nodes-base.readPDF",
+      "position": [
+        -704,
+        128
+      ],
+      "typeVersion": 1,
+      "id": "5c877afd-bc80-4b4a-a35c-1d96c88dd203"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/generate",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "model",
+              "value": "gemma:2b"
+            },
+            {
+              "name": "stream",
+              "value": "={{ false }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        128
+      ],
+      "id": "a243b734-8138-4eac-9980-a12b4fe0ea24",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3d54892a-fdd8-449e-8ce9-ad3759899f63",
+              "name": "text",
+              "value": "={{ $json[\"text\"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -560,
+        128
+      ],
+      "id": "529424c0-78a2-422c-896b-3d3719abc31f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/generate",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "model",
+              "value": "gemma:2b"
+            },
+            {
+              "name": "stream",
+              "value": "={{ false }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -240,
+        304
+      ],
+      "id": "121e8308-abaa-4e2b-b005-e2bdd62704f0",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/generate",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "model",
+              "value": "gemma:2b"
+            },
+            {
+              "name": "stream",
+              "value": "={{ false }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -224,
+        480
+      ],
+      "id": "46d8e85e-79b6-461c-921f-fc3a72c87362",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  text:\n    \"hazme un mapa conceptual en Markdown\\n\\n\" + \n    $input.first().json.text\n      .replace(/\\r?\\n|\\r/g, ' ')   // elimina saltos de línea\n      .replace(/\\t/g, ' ')         // elimina tabulaciones\n      .replace(/\\s{2,}/g, ' ')     // comprime espacios múltiples\n      .replace(/[“”‘’]/g, '\"')     // reemplaza comillas raras\n      .trim()                      // quita espacios al inicio y final\n      .slice(0, 100000)              // corta a los primeros 10000 caracteres\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -416,
+        128
+      ],
+      "id": "66ce73bb-942e-4c81-8cb6-e1365da30c31",
+      "name": "Prompt mapa conceptual Markdown"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  text:\n    \"Genera un diagrama de grafos en markdown basado en el siguiente contenido:n\\n\\n\" + \n    $input.first().json.text\n      .replace(/\\r?\\n|\\r/g, ' ')   // elimina saltos de línea\n      .replace(/\\t/g, ' ')         // elimina tabulaciones\n      .replace(/\\s{2,}/g, ' ')     // comprime espacios múltiples\n      .replace(/[“”‘’]/g, '\"')     // reemplaza comillas raras\n      .trim()                      // quita espacios al inicio y final\n      .slice(0, 100000)              // corta a los primeros 10000 caracteres\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -416,
+        288
+      ],
+      "id": "2643653c-5fdf-45a2-9d1f-95be805f8bbf",
+      "name": "Prompt grafos markdwon"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  text:\n    \"haz un diagrama de flujo en markdwon de\\n\\n\" + \n    $input.first().json.text\n      .replace(/\\r?\\n|\\r/g, ' ')   // elimina saltos de línea\n      .replace(/\\t/g, ' ')         // elimina tabulaciones\n      .replace(/\\s{2,}/g, ' ')     // comprime espacios múltiples\n      .replace(/[“”‘’]/g, '\"')     // reemplaza comillas raras\n      .trim()                      // quita espacios al inicio y final\n      .slice(0, 100000)              // corta a los primeros 10000 caracteres\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -416,
+        480
+      ],
+      "id": "f611467f-4ed5-4b33-ab03-b0ef873ff014",
+      "name": "Prompt diagrama de flujo markdown"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: Buffer.from($input.first().json.response, 'utf8').toString('base64'),\n        mimeType: 'text/markdown',\n        fileName: 'diagrama.md'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        128
+      ],
+      "id": "75a71009-4d9b-44c9-b39d-6aa9ba7a6bae",
+      "name": "Convertir string markdown to md file"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: Buffer.from($input.first().json.response, 'utf8').toString('base64'),\n        mimeType: 'text/markdown',\n        fileName: 'diagrama.md'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        304
+      ],
+      "id": "6011dcaf-50f1-4a1a-9ed9-1c0347399669",
+      "name": "Convertir string markdown to md file1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: Buffer.from($input.first().json.response, 'utf8').toString('base64'),\n        mimeType: 'text/markdown',\n        fileName: 'diagrama.md'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -64,
+        496
+      ],
+      "id": "5e9205d5-7497-48c5-83e6-874fa820f892",
+      "name": "Convertir string markdown to md file2"
+    },
+    {
+      "parameters": {
+        "html": "<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <script type=\"module\">\n    import mermaid from \"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs\";\n    mermaid.initialize({ startOnLoad: true });\n  </script>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      line-height: 1.6;\n      padding: 20px;\n    }\n    h2 {\n      color: #333;\n    }\n  </style>\n</head>\n<body>\n  {{{ $json[\"htmlContent\"] }}}\n</body>\n</html>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        192,
+        -32
+      ],
+      "id": "c69fac77-ab9f-4f23-92c1-ed24844b2261",
+      "name": "HTML"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Read Binary File": {
+      "main": [
+        [
+          {
+            "node": "Read PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Read Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read PDF": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Convertir string markdown to md file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Prompt mapa conceptual Markdown",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prompt grafos markdwon",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prompt diagrama de flujo markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt mapa conceptual Markdown": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt grafos markdwon": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt diagrama de flujo markdown": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Convertir string markdown to md file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Convertir string markdown to md file2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "19d9bef4-cd47-497e-b00d-ed8a9d7f4397",
+  "meta": {
+    "instanceId": "76114ce895eda99de0cdbb4372b7d6465dd8634b5dd7a1bd0fe8c1acce006ead"
+  },
+  "id": "BV0TkI1UKSyMQJuQ",
+  "tags": []
+}
