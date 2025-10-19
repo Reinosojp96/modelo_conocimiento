@@ -1,0 +1,459 @@
+{
+  "name": "Extract text from a PDF file",
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "On clicking 'execute'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "position": [
+        368,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "8108b1d9-1036-469e-a90c-3bf0fd246479"
+    },
+    {
+      "parameters": {
+        "filePath": "/home/node/.n8n/data/manual_empresa.pdf"
+      },
+      "name": "Read Binary File",
+      "type": "n8n-nodes-base.readBinaryFile",
+      "position": [
+        544,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "96b11160-0ddd-4a1d-81e0-b92788ff761e"
+    },
+    {
+      "parameters": {},
+      "name": "Read PDF",
+      "type": "n8n-nodes-base.readPDF",
+      "position": [
+        704,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "c48e87eb-04ab-4fba-ab1a-53987080f635"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/generate",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "model",
+              "value": "gemma:2b"
+            },
+            {
+              "name": "stream",
+              "value": "={{ false }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1168,
+        240
+      ],
+      "id": "c95babcb-2c99-4f11-a376-3a0edc271297",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "3d54892a-fdd8-449e-8ce9-ad3759899f63",
+              "name": "text",
+              "value": "={{ $json[\"text\"] }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        848,
+        240
+      ],
+      "id": "bb4a8484-2967-4f7d-a8fc-917823c39d17",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/generate",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "model",
+              "value": "gemma:2b"
+            },
+            {
+              "name": "stream",
+              "value": "={{ false }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1168,
+        416
+      ],
+      "id": "d24c0a1f-7d96-4b82-a909-a0ceec3699a1",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:11434/api/generate",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "{\n  \"Content-Type\": \"application/json\"\n}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "name": "model",
+              "value": "gemma:2b"
+            },
+            {
+              "name": "stream",
+              "value": "={{ false }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1184,
+        592
+      ],
+      "id": "905f322d-995f-4c2a-b986-784d9bdb7530",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  text:\n    \"hazme un mapa conceptual en Markdown\\n\\n\" + \n    $input.first().json.text\n      .replace(/\\r?\\n|\\r/g, ' ')   // elimina saltos de línea\n      .replace(/\\t/g, ' ')         // elimina tabulaciones\n      .replace(/\\s{2,}/g, ' ')     // comprime espacios múltiples\n      .replace(/[“”‘’]/g, '\"')     // reemplaza comillas raras\n      .trim()                      // quita espacios al inicio y final\n      .slice(0, 100000)              // corta a los primeros 10000 caracteres\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        240
+      ],
+      "id": "34ae53aa-b944-4809-932a-928349e0c7fc",
+      "name": "Prompt mapa conceptual Markdown"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  text:\n    \"Genera un diagrama de grafos en markdown basado en el siguiente contenido:n\\n\\n\" + \n    $input.first().json.text\n      .replace(/\\r?\\n|\\r/g, ' ')   // elimina saltos de línea\n      .replace(/\\t/g, ' ')         // elimina tabulaciones\n      .replace(/\\s{2,}/g, ' ')     // comprime espacios múltiples\n      .replace(/[“”‘’]/g, '\"')     // reemplaza comillas raras\n      .trim()                      // quita espacios al inicio y final\n      .slice(0, 100000)              // corta a los primeros 10000 caracteres\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        400
+      ],
+      "id": "1645aba3-c0d8-4d41-8665-e1e30a9be8b3",
+      "name": "Prompt grafos markdwon"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  text:\n    \"haz un diagrama de flujo en markdwon de\\n\\n\" + \n    $input.first().json.text\n      .replace(/\\r?\\n|\\r/g, ' ')   // elimina saltos de línea\n      .replace(/\\t/g, ' ')         // elimina tabulaciones\n      .replace(/\\s{2,}/g, ' ')     // comprime espacios múltiples\n      .replace(/[“”‘’]/g, '\"')     // reemplaza comillas raras\n      .trim()                      // quita espacios al inicio y final\n      .slice(0, 100000)              // corta a los primeros 10000 caracteres\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        592
+      ],
+      "id": "60881734-95b7-4216-9aa2-0fb35a3d7d62",
+      "name": "Prompt diagrama de flujo markdown"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: Buffer.from($input.first().json.response, 'utf8').toString('base64'),\n        mimeType: 'text/markdown',\n        fileName: 'diagrama.md'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        240
+      ],
+      "id": "1c4500b2-e7ec-4137-9632-fd6762629fa7",
+      "name": "Convertir string markdown to md file"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: Buffer.from($input.first().json.response, 'utf8').toString('base64'),\n        mimeType: 'text/markdown',\n        fileName: 'diagrama.md'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        416
+      ],
+      "id": "746713b7-1c59-4658-8af9-a78a99ce230f",
+      "name": "Convertir string markdown to md file1"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    binary: {\n      data: {\n        data: Buffer.from($input.first().json.response, 'utf8').toString('base64'),\n        mimeType: 'text/markdown',\n        fileName: 'diagrama.md'\n      }\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        608
+      ],
+      "id": "60c32ee1-1be0-4778-9065-7af9589f915d",
+      "name": "Convertir string markdown to md file2"
+    },
+    {
+      "parameters": {
+        "html": "<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <script type=\"module\">\n    import mermaid from \"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs\";\n    mermaid.initialize({ startOnLoad: true });\n  </script>\n  <style>\n    body {\n      font-family: Arial, sans-serif;\n      line-height: 1.6;\n      padding: 20px;\n    }\n    h2 {\n      color: #333;\n    }\n  </style>\n</head>\n<body>\n  {{{ $json[\"htmlContent\"] }}}\n</body>\n</html>\n"
+      },
+      "type": "n8n-nodes-base.html",
+      "typeVersion": 1.2,
+      "position": [
+        1504,
+        64
+      ],
+      "id": "db7aa0cd-2678-4969-84dd-71d382fe89a3",
+      "name": "HTML"
+    },
+    {
+      "parameters": {
+        "jsCode": "return { json: $binary };\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        384
+      ],
+      "id": "7a68b87d-6e66-43dd-bc76-78f8768af3df",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const MarkdownIt = require(\"markdown-it\");\nconst md = new MarkdownIt();\n\nreturn {\n  json: {\n    htmlContent: md.render($json.response)\n  }\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1344,
+        80
+      ],
+      "id": "70f7eaa7-192c-499e-8fe0-a8b248c6b8f5",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "content": "On docker compose install markitdown"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1040,
+        48
+      ],
+      "typeVersion": 1,
+      "id": "518c5238-0e69-4957-bc64-0a67e50d694e",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Read Binary File": {
+      "main": [
+        [
+          {
+            "node": "Read PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On clicking 'execute'": {
+      "main": [
+        [
+          {
+            "node": "Read Binary File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read PDF": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Convertir string markdown to md file",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Prompt mapa conceptual Markdown",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prompt grafos markdwon",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Prompt diagrama de flujo markdown",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt mapa conceptual Markdown": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt grafos markdwon": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt diagrama de flujo markdown": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "Convertir string markdown to md file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Convertir string markdown to md file2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convertir string markdown to md file": {
+      "main": [
+        []
+      ]
+    },
+    "HTML": {
+      "main": [
+        []
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a1e1b9d3-6ef0-4f87-9a70-7cd88a90337d",
+  "meta": {
+    "templateId": "585",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "08db4b2390f4578b71ff5189195e1ac21894b1c4cc880b65ea3de5f84de05f25"
+  },
+  "id": "GXSKbCADVbcmEzoo",
+  "tags": []
+}
